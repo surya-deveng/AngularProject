@@ -1,4 +1,6 @@
-# ---- Stage 1: Build Angular App ----
+# -----------------------------
+# Stage 1: Build Angular App
+# -----------------------------
 FROM node:18 AS build-stage
 
 WORKDIR /app
@@ -9,10 +11,12 @@ RUN npm install
 COPY . .
 RUN npm run build -- --configuration production
 
-# ---- Stage 2: Serve with Nginx ----
+# -----------------------------
+# Stage 2: Serve using Nginx
+# -----------------------------
 FROM nginx:alpine
 
-COPY --from=build-stage /app/dist/angularproject/ /usr/share/nginx/html/
+COPY --from=build-stage /app/dist/angular-project/ /usr/share/nginx/html/
 
 EXPOSE 1234
 
